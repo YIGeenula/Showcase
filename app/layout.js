@@ -1,6 +1,7 @@
 import { Inter, Outfit } from 'next/font/google'
 import "./globals.css";
 import GSAPInitializer from '@/components/GSAPInitializer';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-main' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-display' });
@@ -56,6 +57,19 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} ${outfit.variable}`}
         suppressHydrationWarning
       >
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-MQHR1V9354"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-MQHR1V9354');
+          `}
+        </Script>
         <GSAPInitializer />
         {children}
         <script
