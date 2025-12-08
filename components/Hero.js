@@ -69,10 +69,10 @@ export default function Hero() {
                 <h1 style={{
                     fontSize: 'clamp(2rem, 18vw, 18rem)',
                     fontFamily: 'var(--font-display)',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     color: 'rgba(255, 255, 255, 0.03)',
                     lineHeight: 0.8,
-                    letterSpacing: '-0.0em'
+                    letterSpacing: '-0.03em'
                 }}>
                     CODE<span style={{ fontWeight: 900, color: 'rgba(255, 255, 255, 0.05)', fontSize: '1.2em' }}>X</span>BLAZE
                 </h1>

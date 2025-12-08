@@ -1,0 +1,19 @@
+export default function sitemap() {
+    const baseUrl = 'https://codexblaze.com'; // Replace with actual domain
+
+    return [
+        {
+            url: baseUrl,
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 1,
+        },
+        {
+            url: `${baseUrl}/projects`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        // Add other routes here if they exist as separate pages
+    ];
+}

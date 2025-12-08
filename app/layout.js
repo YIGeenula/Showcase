@@ -6,8 +6,45 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-main' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-display' });
 
 export const metadata = {
-  title: "Futuristic Developer Portfolio",
-  description: "Immersive Web Experience",
+  title: {
+    default: "CODEXBLAZE | Immersive Web Experience",
+    template: "%s | CODEXBLAZE"
+  },
+  description: "CODEXBLAZE is a premium digital agency specializing in immersive web experiences, identifying high-quality digital products, AI-assisted development, and modern design thinking.",
+  keywords: ["web development", "immersive web", "3D websites", "GSAP animations", "digital agency", "Next.js portfolio", "creative developer", "UI/UX design"],
+  authors: [{ name: "CODEXBLAZE" }],
+  creator: "CODEXBLAZE",
+  publisher: "CODEXBLAZE",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "CODEXBLAZE | Immersive Web Experience",
+    description: "Experience the future of web development with CODEXBLAZE. We build modern, high-quality digital products using cutting-edge technology.",
+    url: "https://codexblaze.com",
+    siteName: "CODEXBLAZE",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CODEXBLAZE | Immersive Web Experience",
+    description: "Experience the future of web development with CODEXBLAZE.",
+    creator: "@codexblaze", // Placeholder, assuming handle
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -21,6 +58,23 @@ export default function RootLayout({ children }) {
       >
         <GSAPInitializer />
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "CODEXBLAZE",
+              "url": "https://codexblaze.com",
+              "logo": "https://codexblaze.com/icon.png",
+              "description": "Immersive Web Experience and Digital Products",
+              "sameAs": [
+                "https://twitter.com/codexblaze",
+                "https://github.com/codexblaze"
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );
