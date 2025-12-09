@@ -41,7 +41,7 @@ export default function AllProjects() {
             title: 'GLAMOUR HAVEN',
             cat: 'LIFESTYLE',
             bg: '/images/projects/proj-04.webp',
-            url: '#',
+            url: 'https://glamour-haven.netlify.app/',
             desc: 'Elegant salon website with online booking system, service catalog, and gallery showcase. Features testimonials, pricing tables, and integrated contact forms for appointments.',
             tech: ['HTML', 'CSS', 'JavaScript']
         },
@@ -49,7 +49,7 @@ export default function AllProjects() {
             title: 'QNC E INSTITUTE',
             cat: 'EDUCATION',
             bg: '/images/projects/proj-05.webp',
-            url: '#',
+            url: 'https://qnceinstitute.com/',
             desc: 'QNC E Institute is an innovative online platform dedicated to providing students with access to mathematics lecture videos.',
             tech: ['WordPress']
         },
@@ -57,7 +57,7 @@ export default function AllProjects() {
             title: 'TECKYBUILDS',
             cat: 'SHOWCASE',
             bg: '/images/projects/proj-06.webp',
-            url: '#',
+            url: 'https://teckybuilds.netlify.app/',
             desc: 'Modern e-commerce website (Homepage Only) for PC components featuring a custom PC builder, product catalog, and service booking system. Includes responsive design.',
             tech: ['HTML', 'CSS', 'JavaScript']
         },
@@ -65,7 +65,7 @@ export default function AllProjects() {
             title: 'MESSAGING APP',
             cat: 'UI/UX',
             bg: '/images/projects/ui-proj-01.webp',
-            url: '#',
+            url: 'https://www.figma.com/file/XhHQbjLXKEIGqvjNw87IlP/Chat-App?type=design&node-id=0%3A1&mode=design&t=NDdYVf61A7Qnsrup-1',
             desc: 'A modern messaging app simplifies communication, offering helpful features for both individuals and businesses, enabling quick information sharing and smoother collaboration.',
             tech: ['Figma']
         },
@@ -73,7 +73,7 @@ export default function AllProjects() {
             title: 'GAMING CLIENT',
             cat: 'UI/UX',
             bg: '/images/projects/ui-proj-02.webp',
-            url: '#',
+            url: 'https://www.figma.com/file/MpGYe0n2q7QHUSLoJAiFM9/Game-Client?type=design&node-id=0%3A1&mode=design&t=FwTU1SVZpXCMCF6a-1',
             desc: 'A gaming platform provides easy access to many fun experiences, giving players lots of options and ensuring everyone has a great time playing games.',
             tech: ['Figma']
         },
@@ -81,7 +81,7 @@ export default function AllProjects() {
             title: 'BOOKING WEBSITE',
             cat: 'UI/UX',
             bg: '/images/projects/ui-proj-03.webp',
-            url: '#',
+            url: 'https://www.figma.com/file/MpGYe0n2q7QHUSLoJAiFM9/Game-Client?type=design&node-id=0%3A1&mode=design&t=FwTU1SVZpXCMCF6a-1',
             desc: 'A user-friendly booking website lets you easily reserve what you need, whether it\'s a hotel room, a table at a restaurant, or tickets for an event.',
             tech: ['Figma']
         }
