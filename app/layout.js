@@ -1,6 +1,7 @@
 import { Inter, Outfit } from 'next/font/google'
 import "./globals.css";
 import GSAPInitializer from '@/components/GSAPInitializer';
+import SplashScreen from '@/components/SplashScreen';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-main' });
@@ -71,6 +72,7 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         <GSAPInitializer />
+        <SplashScreen />
         {children}
         <script
           type="application/ld+json"
