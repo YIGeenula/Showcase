@@ -1,203 +1,352 @@
 "use client";
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react/dist";
 
 export default function Navigation() {
     const navRef = useRef(null);
-    const logoRef = useRef(null);
-    const linksRef = useRef([]);
-    const buttonRef = useRef(null);
+    const mobileMenuRef = useRef(null);
+    const menuItemsRef = useRef([]);
+    const hamburgerRef = useRef(null);
+
     const pathname = usePathname();
-    const isHome = pathname === '/';
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // State to track active section (optional, but good for UI)
-    const [activeLink, setActiveLink] = useState('Home');
-
+    // Initial Animations
     useGSAP(() => {
-        // 1. Initial Reveal
-        const tl = gsap.timeline({ delay: 0.2 });
-
-        tl.from(navRef.current, {
-            y: -100,
+        // Navbar Reveal
+        gsap.from(navRef.current, {
+            yPercent: -100,
             opacity: 0,
             duration: 1,
-            ease: "power3.out"
-        })
-            .from(logoRef.current, {
-                x: -20,
-                opacity: 0,
-                duration: 0.5
-            }, "-=0.5")
-            .from(linksRef.current, {
-                y: -20,
-                opacity: 0,
-                stagger: 0.1,
-                duration: 0.5
-            }, "-=0.3")
-            .from(buttonRef.current, {
-                x: 20,
-                opacity: 0,
-                duration: 0.5
-            }, "-=0.5");
-
-        // 2. Scroll Effect (Frosted Glass)
-        // Only valid if scrolling exists, but ScrollTrigger should handle body safely
-        gsap.to(navRef.current, {
-            scrollTrigger: {
-                trigger: "body",
-                start: "top -50", // when scrolled 50px
-                end: "top -100",
-                toggleActions: "play none none reverse"
-            },
-            backgroundColor: "rgba(0,0,0,0.8)",
-            backdropFilter: "blur(12px)",
-            borderBottom: "1px solid rgba(255,255,255,0.05)",
-            paddingTop: "15px",
-            paddingBottom: "15px",
-            duration: 0.3
+            ease: "power4.out",
+            delay: 0.2
         });
 
-        // 3. Hover Effects for Links
-        linksRef.current.forEach((link) => {
-            if (!link) return;
-
-            // Hover
-            link.addEventListener("mouseenter", () => {
-                gsap.to(link, { color: "var(--color-accent-cyan)", duration: 0.3 });
-                gsap.to(link.querySelector(".dot"), { scale: 1, opacity: 1, duration: 0.3 });
-            });
-
-            // Leave
-            link.addEventListener("mouseleave", () => {
-                gsap.to(link, { color: "#fff", duration: 0.3 });
-                gsap.to(link.querySelector(".dot"), { scale: 0, opacity: 0, duration: 0.3 });
-            });
-        });
-
+        // Ensure Mobile Menu is hidden initially via GSAP
+        // This sets opacity to 1 (visible) but moves it offscreen to the right
+        gsap.set(mobileMenuRef.current, { xPercent: 100, opacity: 1 });
     }, { scope: navRef });
 
-    const navLinks = [
-        { name: 'HOME', href: '#hero' },
-        { name: 'ABOUT', href: '#about' },
-        { name: 'SKILLS', href: '#skills' },
-        { name: 'WORK', href: '#projects' },
-        { name: 'CONTACT', href: '#contact' }
-    ];
+    // Scroll Effect
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-    const handleSmoothScroll = (e, href) => {
-        // If we are not on home, let normal navigation happen to "/"
-        if (!isHome) return;
+    // Toggle Mobile Menu
+    const toggleMenu = () => {
+        if (isMobileMenuOpen) {
+            // Close
+            setIsMobileMenuOpen(false);
+            gsap.to(mobileMenuRef.current, {
+                xPercent: 100,
+                duration: 0.5,
+                ease: "power3.in"
+            });
+            document.body.style.overflow = 'auto';
+        } else {
+            // Open
+            setIsMobileMenuOpen(true);
+            document.body.style.overflow = 'hidden';
 
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-            // Use GSAP ScrollTo if available, otherwise native
-            if (window.gsap && window.gsap.plugins.scrollTo) {
-                window.gsap.to(window, { duration: 1, scrollTo: target, ease: "power3.inOut" });
-            } else {
-                target.scrollIntoView({ behavior: 'smooth' });
+            // Slide In
+            gsap.to(mobileMenuRef.current, {
+                xPercent: 0,
+                duration: 0.5,
+                ease: "power3.out"
+            });
+
+            // Animate Items
+            if (menuItemsRef.current.length > 0) {
+                gsap.fromTo(menuItemsRef.current,
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, delay: 0.2, ease: "power2.out" }
+                );
             }
         }
     };
 
-    return (
-        <header
-            ref={navRef}
-            style={{
-                position: 'fixed',
-                top: 0, left: 0, right: 0,
-                padding: '30px 50px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                zIndex: 1000,
-                transition: 'padding 0.3s ease',
-                width: '100%'
-            }}
-        >
-            {/* LOGO - MODIFIED for larger, bolder 'X' */}
-            <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div ref={logoRef} style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-display)', letterSpacing: '-1px' }}>
-                    CODE<span style={{ fontWeight: 'bolder', fontSize: '1.8rem' }}>X</span>BLAZE<span style={{ color: 'var(--color-accent-cyan)' }}>.</span>
-                </div>
-            </a>
+    // Close on route change
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            toggleMenu();
+        }
+    }, [pathname]);
 
-            {/* NAVIGATION LINKS */}
-            <nav style={{ display: 'flex', gap: '40px', alignItems: 'center', display: 'none' /* Hidden on small screens normally, but we keep simple */ }}>
-                <div className="desktop-nav" style={{ display: 'flex', gap: '40px' }}>
+
+    const navLinks = [
+        { name: 'Home', href: '/' },
+        { name: 'Blog', href: '/blog' },
+        { name: 'Contact', href: '/contact' }
+    ];
+
+    return (
+        <>
+            <header
+                ref={navRef}
+                className={`navbar ${isScrolled ? 'scrolled' : ''}`}
+            >
+                <div className="nav-container">
+                    {/* LOGO */}
+                    <Link href="/" className="logo">
+                        CODE<span className="logo-accent">X</span>BLAZE
+                    </Link>
+
+                    {/* DESKTOP NAV */}
+                    <nav className="desktop-nav">
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={`nav-link ${isActive ? 'active' : ''}`}
+                                >
+                                    {link.name}
+                                </Link>
+                            );
+                        })}
+                    </nav>
+
+                    {/* CTA BUTTON (Desktop) */}
+                    <div className="nav-cta">
+                        <Link href="/projects" className="cta-button">
+                            Projects
+                        </Link>
+                    </div>
+
+                    {/* MOBILE HAMBURGER */}
+                    <button
+                        className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}
+                        onClick={toggleMenu}
+                        aria-label="Toggle Menu"
+                        ref={hamburgerRef}
+                    >
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </header>
+
+            {/* MOBILE MENU OVERLAY */}
+            <div
+                ref={mobileMenuRef}
+                className="mobile-menu"
+            // Removed inline visibility style to rely on GSAP positioning
+            >
+                <div className="mobile-menu-content">
                     {navLinks.map((link, i) => (
-                        <a
+                        <Link
                             key={link.name}
-                            href={isHome ? link.href : `/${link.href}`}
-                            onClick={(e) => handleSmoothScroll(e, link.href)}
-                            ref={el => linksRef.current[i] = el}
-                            style={{
-                                color: '#fff',
-                                textDecoration: 'none',
-                                fontSize: '0.85rem',
-                                fontWeight: 600,
-                                letterSpacing: '1px',
-                                cursor: 'pointer',
-                                position: 'relative'
-                            }}
+                            href={link.href}
+                            className="mobile-link"
+                            ref={el => menuItemsRef.current[i] = el}
+                            onClick={() => setTimeout(toggleMenu, 100)} // Small delay
                         >
                             {link.name}
-                            {/* Hover Dot */}
-                            <span className="dot" style={{
-                                position: 'absolute',
-                                bottom: '-5px',
-                                left: '50%',
-                                transform: 'translateX(-50%) scale(0)',
-                                width: '4px',
-                                height: '4px',
-                                backgroundColor: 'var(--color-accent-cyan)',
-                                borderRadius: '50%',
-                                opacity: 0
-                            }}></span>
-                        </a>
+                        </Link>
                     ))}
+                    <div ref={el => menuItemsRef.current[navLinks.length] = el}>
+                        <Link href="/projects" className="mobile-cta" onClick={() => setTimeout(toggleMenu, 100)}>
+                            Projects
+                        </Link>
+                    </div>
                 </div>
-            </nav>
-
-            {/* CTA BUTTON */}
-            <div ref={buttonRef}>
-                <a
-                    href="/projects"
-                    style={{
-                        padding: '12px 25px',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        borderRadius: '30px',
-                        fontSize: '0.8rem',
-                        fontWeight: 700,
-                        color: '#fff',
-                        textDecoration: 'none',
-                        transition: 'all 0.3s ease',
-                        backgroundColor: 'rgba(255,255,255,0.05)'
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#fff';
-                        e.currentTarget.style.color = '#000';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                        e.currentTarget.style.color = '#fff';
-                    }}
-                >
-                    PROJECTS
-                </a>
             </div>
 
-            {/* Mobile Style Override */}
             <style jsx>{`
-            @media (max-width: 768px) {
-                .desktop-nav {
-                    display: none !important;
+                /* -- NAVBAR STYLES -- */
+                .navbar {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 1.5rem 0;
+                    z-index: 10000; /* Ensuring Navbar is ALWAYS on top */
+                    transition: background 0.4s ease, padding 0.4s ease, border-bottom 0.4s ease;
+                    border-bottom: 1px solid transparent;
                 }
-            }
-        `}</style>
 
-        </header>
+                .navbar.scrolled {
+                    padding: 1rem 0;
+                    background: rgba(5, 5, 5, 0.9);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                }
+
+                .nav-container {
+                    width: 90%;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                /* -- LOGO -- */
+                .logo {
+                    font-size: 1.5rem;
+                    font-weight: 800;
+                    font-family: var(--font-display);
+                    color: #fff;
+                    letter-spacing: -1px;
+                    text-transform: uppercase;
+                    /* Higher Z-Index than mobile menu (though parent navbar is already higher) */
+                    position: relative;
+                }
+                
+                .logo-accent {
+                    color: var(--color-accent-cyan);
+                    font-size: 1.8rem;
+                    margin: 0 2px;
+                }
+
+                /* -- DESKTOP NAV -- */
+                .desktop-nav {
+                    display: flex;
+                    gap: 2.5rem;
+                    align-items: center;
+                }
+
+                .nav-link {
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.95rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    transition: color 0.3s ease;
+                    position: relative;
+                }
+
+                .nav-link:hover, .nav-link.active {
+                    color: #fff;
+                }
+
+                .nav-link::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -5px;
+                    left: 0;
+                    width: 0%;
+                    height: 2px;
+                    background: var(--color-accent-cyan);
+                    transition: width 0.3s ease;
+                }
+
+                .nav-link:hover::after, .nav-link.active::after {
+                    width: 100%;
+                }
+
+                /* -- CTA BUTTON -- */
+                .cta-button {
+                    padding: 12px 28px;
+                    background: #fff;
+                    color: #000;
+                    font-weight: 700;
+                    font-size: 0.9rem;
+                    border-radius: 50px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    transition: all 0.3s ease;
+                }
+
+                .cta-button:hover {
+                    background: var(--color-accent-cyan);
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 20px rgba(0, 240, 255, 0.3);
+                }
+
+                /* -- HAMBURGER -- */
+                .hamburger {
+                    display: none;
+                    flex-direction: column;
+                    gap: 6px;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 10px;
+                    position: relative;
+                }
+
+                .hamburger span {
+                    display: block;
+                    width: 30px;
+                    height: 2px;
+                    background: #fff;
+                    transition: all 0.3s ease;
+                }
+                
+                .hamburger.open span:nth-child(1) {
+                    transform: rotate(45deg) translate(5px, 6px);
+                }
+                .hamburger.open span:nth-child(2) {
+                    transform: rotate(-45deg) translate(5px, -6px);
+                }
+
+                /* -- MOBILE MENU OVERLAY -- */
+                .mobile-menu {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: #000;
+                    z-index: 9999; /* Just below Navbar (10000) */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    /* Initial hidden state handled by GSAP, but fallback here */
+                    /* transform: translateX(100%);  <-- REMOVED to avoid conflict */
+                }
+
+                .mobile-menu-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 2rem;
+                }
+
+                .mobile-link {
+                    font-family: var(--font-display);
+                    font-size: 2.5rem;
+                    color: rgba(255,255,255,0.8);
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    transition: color 0.3s;
+                }
+
+                .mobile-link:hover {
+                    color: var(--color-accent-cyan);
+                }
+                
+                .mobile-cta {
+                    margin-top: 2rem;
+                    padding: 15px 40px;
+                    border: 1px solid rgba(255,255,255,0.2);
+                    border-radius: 50px;
+                    color: #fff;
+                    font-size: 1.2rem;
+                    text-transform: uppercase;
+                }
+
+                /* -- RESPONSIVE -- */
+                @media (max-width: 1024px) {
+                    .desktop-nav, .nav-cta {
+                        display: none;
+                    }
+                    .hamburger {
+                        display: flex;
+                    }
+                }
+            `}</style>
+        </>
     );
 }
