@@ -8,49 +8,107 @@ export default function Blog() {
         <div style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navigation />
 
-            <div style={{
+            <main style={{
                 flex: 1,
+                padding: '120px 20px 60px',
+                width: '100%',
+                maxWidth: '1200px',
+                margin: '0 auto',
                 display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                padding: '0 20px',
-                background: 'radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%)'
+                flexDirection: 'column'
             }}>
-                <h1 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(3rem, 8vw, 6rem)',
-                    fontWeight: 'bold',
-                    marginBottom: '1rem',
-                    background: 'linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
+                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                    <h1 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: 'clamp(3rem, 8vw, 6rem)',
+                        fontWeight: 'bold',
+                        marginBottom: '1rem',
+                        background: 'linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple))',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                    }}>
+                        BLOG
+                    </h1>
+                    <p style={{
+                        fontFamily: 'var(--font-main)',
+                        fontSize: '1.2rem',
+                        color: '#888',
+                        maxWidth: '600px',
+                        margin: '0 auto'
+                    }}>
+                        Insights, thoughts, and updates from the intersection of design, code, and AI.
+                    </p>
+                </div>
+
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                    gap: '30px',
+                    width: '100%'
                 }}>
-                    BLOG
-                </h1>
-                <p style={{
-                    fontFamily: 'var(--font-main)',
-                    fontSize: '1.2rem',
-                    color: '#888',
-                    maxWidth: '600px'
-                }}>
-                    Insights, thoughts, and updates. Coming soon.
-                </p>
-                <a href="/" style={{
-                    marginTop: '2rem',
-                    padding: '12px 30px',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    borderRadius: '50px',
-                    color: '#fff',
-                    textDecoration: 'none',
-                    fontSize: '0.9rem',
-                    fontWeight: '600',
-                    transition: 'all 0.3s'
-                }}>
-                    Return Home
-                </a>
-            </div>
+                    {/* Article Card 1 */}
+                    <a href="/blog/how-ai-is-changing-web-development" style={{ textDecoration: 'none', display: 'block' }}>
+                        <div className="glass-panel" style={{
+                            padding: '30px',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            transition: 'transform 0.3s, border-color 0.3s',
+                            cursor: 'pointer',
+                            border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-5px)';
+                                e.currentTarget.style.borderColor = 'var(--color-accent-cyan)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                            }}
+                        >
+                            <span style={{
+                                color: 'var(--color-accent-cyan)',
+                                fontSize: '0.8rem',
+                                fontWeight: '600',
+                                letterSpacing: '1px',
+                                textTransform: 'uppercase',
+                                marginBottom: '15px',
+                                display: 'block'
+                            }}>
+                                Dec 12, 2025
+                            </span>
+                            <h2 style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '1.5rem',
+                                marginBottom: '15px',
+                                color: '#fff',
+                                lineHeight: '1.3'
+                            }}>
+                                How AI Is Changing Web Development (Real Examples)
+                            </h2>
+                            <p style={{
+                                color: '#aaa',
+                                lineHeight: '1.6',
+                                fontSize: '0.95rem',
+                                flex: 1,
+                                marginBottom: '20px'
+                            }}>
+                                Discover how AI is reshaping web development in 2025. From UI design to backend optimization, explore real-world examples and tools.
+                            </p>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                color: 'var(--color-accent-purple)',
+                                fontWeight: '600',
+                                fontSize: '0.9rem'
+                            }}>
+                                Read Article
+                                <span style={{ marginLeft: '8px', fontSize: '1.2rem' }}>&rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </main>
 
             <Footer />
         </div>
