@@ -2,6 +2,7 @@ import { Inter, Outfit } from 'next/font/google'
 import "./globals.css";
 import GSAPInitializer from '@/components/GSAPInitializer';
 import SplashScreen from '@/components/SplashScreen';
+import { LoadingProvider } from '@/components/LoadingContext';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-main' });
@@ -58,39 +59,41 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} ${outfit.variable}`}
         suppressHydrationWarning
       >
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-MQHR1V9354"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-MQHR1V9354');
-          `}
-        </Script>
-        <GSAPInitializer />
-        <SplashScreen />
-        {children}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "CODEXBLAZE",
-              "url": "https://codexblaze.com",
-              "logo": "https://codexblaze.com/icon.png",
-              "description": "Immersive Web Experience and Digital Products",
-              "sameAs": [
-                "https://twitter.com/codexblaze",
-                "https://github.com/codexblaze"
-              ]
-            })
-          }}
-        />
+        <LoadingProvider>
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-MQHR1V9354"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+               window.dataLayer = window.dataLayer || [];
+               function gtag(){dataLayer.push(arguments);}
+               gtag('js', new Date());
+   
+               gtag('config', 'G-MQHR1V9354');
+             `}
+          </Script>
+          <GSAPInitializer />
+          <SplashScreen />
+          {children}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "CODEXBLAZE",
+                "url": "https://codexblaze.com",
+                "logo": "https://codexblaze.com/icon.png",
+                "description": "Immersive Web Experience and Digital Products",
+                "sameAs": [
+                  "https://twitter.com/codexblaze",
+                  "https://github.com/codexblaze"
+                ]
+              })
+            }}
+          />
+        </LoadingProvider>
       </body>
     </html>
   );

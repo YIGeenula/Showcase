@@ -5,18 +5,23 @@ import { usePathname } from 'next/navigation';
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react/dist";
 
+import { useLoading } from './LoadingContext';
+
 export default function Navigation() {
+    const { isLoading } = useLoading();
     const navRef = useRef(null);
     const mobileMenuRef = useRef(null);
     const menuItemsRef = useRef([]);
     const hamburgerRef = useRef(null);
 
     const pathname = usePathname();
+
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     // Initial Animations
     useGSAP(() => {
+        if (!navRef.current) return;
         // Navbar Reveal
         gsap.from(navRef.current, {
             yPercent: -100,
@@ -29,7 +34,7 @@ export default function Navigation() {
         // Ensure Mobile Menu is hidden initially via GSAP
         // This sets opacity to 1 (visible) but moves it offscreen to the right
         gsap.set(mobileMenuRef.current, { xPercent: 100, opacity: 1 });
-    }, { scope: navRef });
+    }, { scope: navRef, dependencies: [isLoading] });
 
     // Scroll Effect
     useEffect(() => {
@@ -86,6 +91,8 @@ export default function Navigation() {
         { name: 'Blog', href: '/blog' },
         { name: 'Contact', href: '/contact' }
     ];
+
+    if (isLoading) return null;
 
     return (
         <>

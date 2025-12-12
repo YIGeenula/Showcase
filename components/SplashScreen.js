@@ -3,7 +3,10 @@ import React, { useRef, useState, useLayoutEffect } from 'react';
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react/dist";
 
-export default function SplashScreen({ finishLoading }) {
+import { useLoading } from './LoadingContext';
+
+export default function SplashScreen() {
+    const { finishLoading } = useLoading();
     const containerRef = useRef(null);
     const textRef = useRef(null);
     const subTextRef = useRef(null);
@@ -19,7 +22,7 @@ export default function SplashScreen({ finishLoading }) {
                 setIsMounted(false);
                 // Unlock scroll
                 document.body.style.overflow = "";
-                if (finishLoading) finishLoading();
+                finishLoading();
             }
         });
 
