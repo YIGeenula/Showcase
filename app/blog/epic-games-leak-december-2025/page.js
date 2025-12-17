@@ -130,12 +130,7 @@ export default function BlogPost() {
                             color: '#888',
                             fontFamily: 'var(--font-main)'
                         }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#333' }} />
-                                <span>CodexBlaze Team</span>
-                            </div>
-                            <span>•</span>
-                            <time itemProp="datePublished" dateTime="2025-12-16">Dec 16, 2025</time>
+                            <time itemProp="datePublished" dateTime="2025-12-17">Publish Date: Dec 16, 2025</time>
                         </div>
                     </header>
 

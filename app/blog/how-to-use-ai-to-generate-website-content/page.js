@@ -73,9 +73,7 @@ export default function BlogPost() {
                             marginTop: '1.5rem',
                             color: '#888'
                         }}>
-                            <time itemProp="datePublished" dateTime="2025-12-13">Dec 13, 2025</time>
-                            <span>•</span>
-                            <span itemProp="timeRequired">12 min read</span>
+                            <time itemProp="datePublished" dateTime="2025-12-17">Publish Date: Dec 13, 2025</time>
                         </div>
                     </header>
 
