@@ -2,6 +2,7 @@
 import React, { useRef, useState, useLayoutEffect } from 'react';
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react/dist";
+import { usePathname } from 'next/navigation';
 
 import { useLoading } from './LoadingContext';
 
@@ -12,8 +13,19 @@ export default function SplashScreen() {
     const subTextRef = useRef(null);
     const lineRef = useRef(null);
     const [isMounted, setIsMounted] = useState(true);
+    const pathname = usePathname();
 
     useGSAP(() => {
+        // Check if we should show the splash screen
+        const hasSeenSplash = typeof window !== 'undefined' ? sessionStorage.getItem('hasSeenSplash') : false;
+        const isHomePage = pathname === '/';
+
+        if (!isHomePage || hasSeenSplash) {
+            setIsMounted(false);
+            finishLoading();
+            return;
+        }
+
         // Lock scroll
         document.body.style.overflow = "hidden";
 
@@ -23,6 +35,10 @@ export default function SplashScreen() {
                 // Unlock scroll
                 document.body.style.overflow = "";
                 finishLoading();
+                // Mark as seen
+                if (typeof window !== 'undefined') {
+                    sessionStorage.setItem('hasSeenSplash', 'true');
+                }
             }
         });
 
@@ -84,13 +100,6 @@ export default function SplashScreen() {
             ease: "power2.in",
         });
 
-        // Line collapses (removed as it happens earlier now)
-        // tl.to(lineRef.current, {
-        //     scaleX: 0,
-        //     duration: 0.3,
-        //     ease: "power2.in",
-        // }, "<");
-
         // Curtains open (using clip-path on the container)
         tl.to(containerRef.current, {
             clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
@@ -98,11 +107,10 @@ export default function SplashScreen() {
             ease: "power4.inOut",
         });
 
-    }, { scope: containerRef });
+    }, { scope: containerRef, dependencies: [pathname] });
 
     if (!isMounted) return null;
 
-    // Inline styles for the component
     // Inline styles for the component
     const styles = {
         container: {
