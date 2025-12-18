@@ -45,20 +45,21 @@ const LeakedGameCard = ({ date, title, status, isBigHit }) => {
                 }} />
             )}
             <span style={{
-                color: status === 'Confirmed' ? 'var(--color-accent-lime)' : '#888',
+                color: status === 'Confirmed' ? 'var(--color-accent-lime)' : status === 'Fake' ? '#ff4444' : '#888',
                 fontSize: '0.85rem',
                 fontWeight: '600',
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
                 marginBottom: '5px'
             }}>
-                {date} {status === 'Confirmed' && '• Confirmed'}
+                {date} {status && ` • ${status}`}
             </span>
             <h3 style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: isBigHit ? '1.5rem' : '1.1rem',
-                color: '#fff',
-                marginBottom: '0'
+                color: status === 'Fake' ? '#666' : '#fff',
+                marginBottom: '0',
+                textDecoration: status === 'Fake' ? 'line-through' : 'none'
             }}>
                 {title}
             </h3>
@@ -196,7 +197,7 @@ export default function BlogPost() {
                                 marginTop: '2rem'
                             }}>
                                 <LeakedGameCard date="Dec 11 - 18" title="Hogwarts Legacy" status="Confirmed" />
-                                <LeakedGameCard date="Dec 18" title="Jurassic World: Evolution 2" />
+                                <LeakedGameCard date="Dec 18 - 19" title="Jurassic World: Evolution 2" status="Fake" />
                                 <LeakedGameCard date="Dec 19" title="Desperados 3" />
                                 <LeakedGameCard date="Dec 20" title="Total War: Warhammer" />
                                 <LeakedGameCard date="Dec 21" title="Tropico 5" />
@@ -270,13 +271,13 @@ export default function BlogPost() {
                             </p>
                         </div>
 
-                        <div className="glass-panel" style={{ padding: '40px', marginBottom: '4rem', background: 'rgba(0, 240, 255, 0.03)' }}>
-                            <h2 style={{ ...sectionHeaderStyle, marginTop: 0, fontSize: '1.8rem' }}>The "Truth" Test</h2>
+                        <div className="glass-panel" style={{ padding: '40px', marginBottom: '4rem', background: 'rgba(255, 68, 68, 0.03)', border: '1px solid rgba(255, 68, 68, 0.2)' }}>
+                            <h2 style={{ ...sectionHeaderStyle, marginTop: 0, fontSize: '1.8rem', color: '#ff4444' }}>The "Truth" Test Result</h2>
                             <p>
-                                Leaks are just leaks until proven otherwise. The litmus test for this list is <strong>December 18th</strong>.
+                                The verdict is in, and it's not looking good for this particular leak. The litmus test for this list was <strong>December 18th</strong>.
                             </p>
                             <p style={{ marginTop: '1rem' }}>
-                                If <em>Jurassic World: Evolution 2</em> unlocks for free on that day, you can virtually guarantee the rest of the list—including the massive RDR2 drop—is legit. Mark your calendars.
+                                Since <em>Jurassic World: Evolution 2</em> was NOT the free game (replaced by <em>Jotunnslayer: Hordes of Hel</em>), the credibility of the triple-threat finale—including Red Dead Redemption 2—is now extremely low.
                             </p>
                         </div>
 
