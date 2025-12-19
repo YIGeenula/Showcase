@@ -198,7 +198,7 @@ export default function BlogPost() {
                             }}>
                                 <LeakedGameCard date="Dec 11 - 18" title="Hogwarts Legacy" status="Confirmed" />
                                 <LeakedGameCard date="Dec 18 - 19" title="Jurassic World: Evolution 2" status="Fake" />
-                                <LeakedGameCard date="Dec 19" title="Desperados 3" status="Fake" />
+                                <LeakedGameCard date="Dec 19 - 20" title="Desperados 3" status="Fake" />
                                 <LeakedGameCard date="Dec 20" title="Total War: Warhammer" />
                                 <LeakedGameCard date="Dec 21" title="Tropico 5" />
                                 <LeakedGameCard date="Dec 22" title="Chicken Police – Paint it Red!" />
