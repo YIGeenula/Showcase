@@ -46,7 +46,69 @@ export default function Blog() {
                     gap: '30px',
                     width: '100%'
                 }}>
-                    {/* Article Card 4 - Newest */}
+                    {/* Article Card 5 - Newest */}
+                    <a href="/blog/dos-zone-review-retro-dos-games-browser" style={{ textDecoration: 'none', display: 'block' }}>
+                        <div className="glass-panel" style={{
+                            padding: '30px',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            transition: 'transform 0.3s, border-color 0.3s',
+                            cursor: 'pointer',
+                            border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-5px)';
+                                e.currentTarget.style.borderColor = 'var(--color-accent-cyan)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                            }}
+                        >
+                            <span style={{
+                                color: 'var(--color-accent-cyan)',
+                                fontSize: '0.8rem',
+                                fontWeight: '600',
+                                letterSpacing: '1px',
+                                textTransform: 'uppercase',
+                                marginBottom: '15px',
+                                display: 'block'
+                            }}>
+                                Dec 21, 2025
+                            </span>
+                            <h2 style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '1.5rem',
+                                marginBottom: '15px',
+                                color: '#fff',
+                                lineHeight: '1.3'
+                            }}>
+                                DOS.Zone Review – Ultimate Retro DOS Games in Your Browser
+                            </h2>
+                            <p style={{
+                                color: '#aaa',
+                                lineHeight: '1.6',
+                                fontSize: '0.95rem',
+                                flex: 1,
+                                marginBottom: '20px'
+                            }}>
+                                Revive the golden age of PC gaming. Play legendary titles like DOOM and Prince of Persia directly in your browser without any downloads.
+                            </p>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                color: 'var(--color-accent-purple)',
+                                fontWeight: '600',
+                                fontSize: '0.9rem'
+                            }}>
+                                Read Article
+                                <span style={{ marginLeft: '8px', fontSize: '1.2rem' }}>&rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    {/* Article Card 4 */}
                     <a href="/blog/chatgpt-5-2-breakthrough-ai-update-2025" style={{ textDecoration: 'none', display: 'block' }}>
                         <div className="glass-panel" style={{
                             padding: '30px',
@@ -107,7 +169,8 @@ export default function Blog() {
                             </div>
                         </div>
                     </a>
-                    {/* Article Card 3 - Newest */}
+
+                    {/* Article Card 3 */}
                     <a href="/blog/epic-games-leak-december-2025" style={{ textDecoration: 'none', display: 'block' }}>
                         <div className="glass-panel" style={{
                             padding: '30px',
@@ -168,7 +231,8 @@ export default function Blog() {
                             </div>
                         </div>
                     </a>
-                    {/* Article Card 2 - New */}
+
+                    {/* Article Card 2 */}
                     <a href="/blog/how-to-use-ai-to-generate-website-content" style={{ textDecoration: 'none', display: 'block' }}>
                         <div className="glass-panel" style={{
                             padding: '30px',
@@ -229,6 +293,7 @@ export default function Blog() {
                             </div>
                         </div>
                     </a>
+
                     {/* Article Card 1 */}
                     <a href="/blog/how-ai-is-changing-web-development" style={{ textDecoration: 'none', display: 'block' }}>
                         <div className="glass-panel" style={{
