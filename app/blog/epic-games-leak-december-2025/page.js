@@ -201,7 +201,7 @@ export default function BlogPost() {
                                 <LeakedGameCard date="Dec 19 - 20" title="Desperados 3" status="Fake" />
                                 <LeakedGameCard date="Dec 20 - 21" title="Total War: Warhammer" status="Fake" />
                                 <LeakedGameCard date="Dec 21 - 22" title="Tropico 5" status="Fake" />
-                                <LeakedGameCard date="Dec 22" title="Chicken Police – Paint it Red!" />
+                                <LeakedGameCard date="Dec 22 - 23" title="Chicken Police – Paint it Red!" status="Fake" />
                                 <LeakedGameCard date="Dec 23" title="Loop Hero" />
                                 <LeakedGameCard date="Dec 24" title="LEGO Batman" />
                                 <LeakedGameCard date="Dec 25" title="Commander Keen" />
