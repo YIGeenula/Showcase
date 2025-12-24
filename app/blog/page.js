@@ -46,6 +46,67 @@ export default function Blog() {
                     gap: '30px',
                     width: '100%'
                 }}>
+                    {/* Article Card 6 - Newest */}
+                    <a href="/blog/vince-zampella-death-car-crash" style={{ textDecoration: 'none', display: 'block' }}>
+                        <div className="glass-panel" style={{
+                            padding: '30px',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            transition: 'transform 0.3s, border-color 0.3s',
+                            cursor: 'pointer',
+                            border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-5px)';
+                                e.currentTarget.style.borderColor = 'var(--color-accent-cyan)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                            }}
+                        >
+                            <span style={{
+                                color: '#ff4444',
+                                fontSize: '0.8rem',
+                                fontWeight: '600',
+                                letterSpacing: '1px',
+                                textTransform: 'uppercase',
+                                marginBottom: '15px',
+                                display: 'block'
+                            }}>
+                                Breaking • Dec 21, 2025
+                            </span>
+                            <h2 style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '1.5rem',
+                                marginBottom: '15px',
+                                color: '#fff',
+                                lineHeight: '1.3'
+                            }}>
+                                Vince Zampella Dead at 55: Call of Duty Co-Creator Dies in Tragic Car Crash
+                            </h2>
+                            <p style={{
+                                color: '#aaa',
+                                lineHeight: '1.6',
+                                fontSize: '0.95rem',
+                                flex: 1,
+                                marginBottom: '20px'
+                            }}>
+                                Vince Zampella, the legendary video game designer best known as the co-creator of the Call of Duty franchise, has died following a car accident.
+                            </p>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                color: 'var(--color-accent-purple)',
+                                fontWeight: '600',
+                                fontSize: '0.9rem'
+                            }}>
+                                Read Article
+                                <span style={{ marginLeft: '8px', fontSize: '1.2rem' }}>&rarr;</span>
+                            </div>
+                        </div>
+                    </a>
                     {/* Article Card 5 - Newest */}
                     <a href="/blog/dos-zone-review-retro-dos-games-browser" style={{ textDecoration: 'none', display: 'block' }}>
                         <div className="glass-panel" style={{
