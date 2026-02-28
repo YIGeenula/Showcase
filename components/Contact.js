@@ -168,18 +168,35 @@ export default function Contact() {
                             alignItems: 'center',
                             gap: '10px',
                             opacity: isSubmitting ? 0.7 : 1,
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
+                            minHeight: '60px'
                         }}
                             onMouseEnter={(e) => { if (!isSubmitting) { e.target.style.background = 'var(--color-accent-cyan)'; e.target.style.transform = 'translateY(-2px)'; } }}
                             onMouseLeave={(e) => { if (!isSubmitting) { e.target.style.background = '#fff'; e.target.style.transform = 'translateY(0)'; } }}
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'TRANSMITTING...' : 'SEND MESSAGE'}
-                            {!isSubmitting && (
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
+                            {isSubmitting ? (
+                                <div style={{ display: 'flex', gap: '6px', alignItems: 'center', height: '20px' }}>
+                                    <style>{`
+                                        @keyframes data-transmit {
+                                            0%, 100% { height: 8px; opacity: 0.3; }
+                                            50% { height: 20px; opacity: 1; }
+                                        }
+                                    `}</style>
+                                    <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit 1s ease-in-out infinite 0s' }}></div>
+                                    <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit 1s ease-in-out infinite 0.15s' }}></div>
+                                    <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit 1s ease-in-out infinite 0.3s' }}></div>
+                                    <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit 1s ease-in-out infinite 0.45s' }}></div>
+                                    <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit 1s ease-in-out infinite 0.6s' }}></div>
+                                </div>
+                            ) : (
+                                <>
+                                    SEND MESSAGE
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </>
                             )}
                         </button>
 
