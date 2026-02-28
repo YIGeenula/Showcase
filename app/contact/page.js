@@ -167,9 +167,38 @@ export default function ContactPage() {
                                 type="submit"
                                 className={`submit-btn ${isSubmitting ? 'loading' : ''}`}
                                 disabled={isSubmitting}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    opacity: isSubmitting ? 0.7 : 1,
+                                    minHeight: '60px'
+                                }}
                             >
-                                {isSubmitting ? 'Sending...' : 'Send Message'}
-                                <span className="btn-glare"></span>
+                                {isSubmitting ? (
+                                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center', height: '20px' }}>
+                                        <style>{`
+                                            @keyframes data-transmit-contact {
+                                                0%, 100% { height: 8px; opacity: 0.3; }
+                                                50% { height: 20px; opacity: 1; }
+                                            }
+                                        `}</style>
+                                        <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit-contact 1s ease-in-out infinite 0s' }}></div>
+                                        <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit-contact 1s ease-in-out infinite 0.15s' }}></div>
+                                        <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit-contact 1s ease-in-out infinite 0.3s' }}></div>
+                                        <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit-contact 1s ease-in-out infinite 0.45s' }}></div>
+                                        <div style={{ width: '4px', background: '#000', borderRadius: '2px', animation: 'data-transmit-contact 1s ease-in-out infinite 0.6s' }}></div>
+                                    </div>
+                                ) : (
+                                    <>
+                                        Send Message
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '10px' }}>
+                                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                        </svg>
+                                        <span className="btn-glare"></span>
+                                    </>
+                                )}
                             </button>
                         </form>
                     ) : (
