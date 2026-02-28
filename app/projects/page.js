@@ -1,464 +1,476 @@
 "use client";
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react/dist";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { ScrollSmoother } from "gsap/dist/ScrollSmoother";
 
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
+const web = [
+    { id: 'w1', type: 'WEB', title: 'MY NIHONGO PATH', cat: 'EDUCATION', bg: '/images/projects/proj_01.webp', url: 'http://mynihongopath.online', desc: 'My Nihongo Path is a comprehensive Japanese learning platform designed to help students master Hiragana, Katakana, and Kanji through interactive lessons and practice tools.', tech: ['HTML', 'CSS', 'JavaScript'] },
+    { id: 'w2', type: 'WEB', title: 'GTA 6 COUNTDOWN', cat: 'ENTERTAINMENT', bg: '/images/projects/proj_02.webp', url: 'https://gta6release.netlify.app', desc: 'GTA 6 release countdown website with a live timer, latest news updates, trailer embeds, and featured leaks.', tech: ['HTML', 'CSS', 'JavaScript'] },
+    { id: 'w3', type: 'WEB', title: 'GW PORTFOLIO', cat: 'PORTFOLIO', bg: '/images/projects/proj_03.webp', url: 'https://gesitha.netlify.app', desc: 'Professional portfolio website for a graphic designer featuring animated sections, project showcases, and a contact form.', tech: ['HTML', 'CSS', 'JavaScript'] },
+    { id: 'w4', type: 'WEB', title: 'GLAMOUR HAVEN', cat: 'LIFESTYLE', bg: '/images/projects/proj-04.webp', url: 'https://glamour-haven.netlify.app/', desc: 'Elegant salon website with online booking system, service catalog, and gallery showcase.', tech: ['HTML', 'CSS', 'JavaScript'] },
+    { id: 'w5', type: 'WEB', title: 'QNC E INSTITUTE', cat: 'EDUCATION', bg: '/images/projects/proj-05.webp', url: 'https://qnceinstitute.com/', desc: 'Innovative online platform dedicated to providing students with access to mathematics lecture videos.', tech: ['WordPress'] },
+    { id: 'w6', type: 'WEB', title: 'TECKYBUILDS', cat: 'SHOWCASE', bg: '/images/projects/proj-06.webp', url: 'https://teckybuilds.netlify.app/', desc: 'Modern e-commerce website for PC components featuring a custom PC builder, product catalog, and service booking system.', tech: ['HTML', 'CSS', 'JavaScript'] }
+
+];
+
+const graphics = [
+    { id: 'g1', type: 'DESIGN', title: 'BRAND IDENTITY', cat: 'LOGO & BRANDING', img: '/images/graphics/graphic_01.jpg', desc: 'Comprehensive brand identity design for Aurora Dynamics, including logo design, business cards, letterhead, and smartphone UI mockups mapping the new visual language.' },
+    { id: 'g2', type: 'DESIGN', title: 'SOCIAL CAMPAIGN', cat: 'MARKETING KIT', img: '/images/graphics/graphic_02.jpg', desc: 'A vibrant, high-conversion visual marketing kit designed for creative agencies to highlight key metrics, client success stories, and team spotlights.' },
+    { id: 'g3', type: 'DESIGN', title: 'FESTIVAL POSTER', cat: 'PRINT DESIGN', img: '/images/graphics/graphic_03.jpg', desc: 'High-impact, neon typography-driven print and digital poster design for a futuristic music and tech festival called Synthesis.' },
+    { id: 'g4', type: 'DESIGN', title: 'LUXE PACKAGING', cat: 'PRODUCT DESIGN', img: '/images/graphics/graphic_04.jpg', desc: 'Minimalist, luxury packaging design concept for LUMINÉRE night repair serum, emphasizing premium materials and sleek silver foiling.' },
+    { id: 'w7', type: 'UI/UX', title: 'MESSAGING APP', cat: 'UI/UX', img: '/images/projects/ui-proj-01.webp', desc: 'A modern messaging app simplifies communication, offering helpful features for both individuals and businesses.' },
+    { id: 'w8', type: 'UI/UX', title: 'GAMING CLIENT', cat: 'UI/UX', img: '/images/projects/ui-proj-02.webp', desc: 'A gaming platform provides easy access to many fun experiences, giving players lots of options and ensuring everyone has a great time playing games.' },
+    { id: 'w9', type: 'UI/UX', title: 'BOOKING WEBSITE', cat: 'UI/UX', img: '/images/projects/ui-proj-03.webp', desc: 'A user-friendly booking website lets you easily reserve what you need, whether it\'s a hotel room, a table at a restaurant, or tickets for an event.' }
+];
+
 export default function AllProjects() {
     const mainRef = useRef(null);
-    const sectionRef = useRef(null);
-
-    const projects = [
-        {
-            title: 'MY NIHONGO PATH',
-            cat: 'EDUCATION',
-            bg: '/images/projects/proj_01.webp',
-            url: 'http://mynihongopath.online',
-            desc: 'My Nihongo Path is a comprehensive Japanese learning platform designed to help students master Hiragana, Katakana, and Kanji through interactive lessons and practice tools.',
-            tech: ['HTML', 'CSS', 'JavaScript']
-        },
-        {
-            title: 'GTA 6 COUNTDOWN',
-            cat: 'ENTERTAINMENT',
-            bg: '/images/projects/proj_02.webp',
-            url: 'https://gta6release.netlify.app',
-            desc: 'GTA 6 release countdown website with a live timer, latest news updates, trailer embeds, and featured leaks. Includes fan theories, interactive comment sections, and social sharing for hype-building.',
-            tech: ['HTML', 'CSS', 'JavaScript']
-        },
-        {
-            title: 'GW PORTFOLIO',
-            cat: 'PORTFOLIO',
-            bg: '/images/projects/proj_03.webp',
-            url: 'https://gesitha.netlify.app',
-            desc: 'Professional portfolio website for a graphic designer featuring animated sections, project showcases, and a contact form. Includes skill progress bars and downloadable CV functionality.',
-            tech: ['HTML', 'CSS', 'JavaScript']
-        },
-        {
-            title: 'GLAMOUR HAVEN',
-            cat: 'LIFESTYLE',
-            bg: '/images/projects/proj-04.webp',
-            url: 'https://glamour-haven.netlify.app/',
-            desc: 'Elegant salon website with online booking system, service catalog, and gallery showcase. Features testimonials, pricing tables, and integrated contact forms for appointments.',
-            tech: ['HTML', 'CSS', 'JavaScript']
-        },
-        {
-            title: 'QNC E INSTITUTE',
-            cat: 'EDUCATION',
-            bg: '/images/projects/proj-05.webp',
-            url: 'https://qnceinstitute.com/',
-            desc: 'QNC E Institute is an innovative online platform dedicated to providing students with access to mathematics lecture videos.',
-            tech: ['WordPress']
-        },
-        {
-            title: 'TECKYBUILDS',
-            cat: 'SHOWCASE',
-            bg: '/images/projects/proj-06.webp',
-            url: 'https://teckybuilds.netlify.app/',
-            desc: 'Modern e-commerce website (Homepage Only) for PC components featuring a custom PC builder, product catalog, and service booking system. Includes responsive design.',
-            tech: ['HTML', 'CSS', 'JavaScript']
-        },
-        {
-            title: 'MESSAGING APP',
-            cat: 'UI/UX',
-            bg: '/images/projects/ui-proj-01.webp',
-            url: 'https://www.figma.com/file/XhHQbjLXKEIGqvjNw87IlP/Chat-App?type=design&node-id=0%3A1&mode=design&t=NDdYVf61A7Qnsrup-1',
-            desc: 'A modern messaging app simplifies communication, offering helpful features for both individuals and businesses, enabling quick information sharing and smoother collaboration.',
-            tech: ['Figma']
-        },
-        {
-            title: 'GAMING CLIENT',
-            cat: 'UI/UX',
-            bg: '/images/projects/ui-proj-02.webp',
-            url: 'https://www.figma.com/file/MpGYe0n2q7QHUSLoJAiFM9/Game-Client?type=design&node-id=0%3A1&mode=design&t=FwTU1SVZpXCMCF6a-1',
-            desc: 'A gaming platform provides easy access to many fun experiences, giving players lots of options and ensuring everyone has a great time playing games.',
-            tech: ['Figma']
-        },
-        {
-            title: 'BOOKING WEBSITE',
-            cat: 'UI/UX',
-            bg: '/images/projects/ui-proj-03.webp',
-            url: 'https://www.figma.com/file/MpGYe0n2q7QHUSLoJAiFM9/Game-Client?type=design&node-id=0%3A1&mode=design&t=FwTU1SVZpXCMCF6a-1',
-            desc: 'A user-friendly booking website lets you easily reserve what you need, whether it\'s a hotel room, a table at a restaurant, or tickets for an event.',
-            tech: ['Figma']
-        }
-    ];
+    const webSectionRef = useRef(null);
+    const webContainerRef = useRef(null);
+    const gfxSectionRef = useRef(null);
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Initialize ScrollSmoother if available
-        if (gsap.plugins.scrollSmoother || (ScrollSmoother && ScrollSmoother.version)) {
-            try {
-                ScrollSmoother.create({
-                    wrapper: "#smooth-wrapper",
-                    content: "#smooth-content",
-                    smooth: 1.5,
-                    effects: true,
-                    smoothTouch: 0.1
-                });
-            } catch (error) {
-                console.log("ScrollSmoother initialization skipped:", error);
-            }
-        }
+        let mm = gsap.matchMedia();
 
-        const panels = gsap.utils.toArray(".project-panel");
-        const totalPanels = panels.length;
+        mm.add("(min-width: 1024px)", () => {
+            // WEB PROJECTS: Horizontal Scroll Effect
+            const webCards = gsap.utils.toArray('.web-card');
+            const getScrollAmount = () => {
+                let webContainerWidth = webContainerRef.current.scrollWidth;
+                return -(webContainerWidth - window.innerWidth + 200); // offset
+            };
 
-        // Horizontal Scroll Logic
-        // We pin the container and move the panels to the left
-        gsap.to(panels, {
-            xPercent: -100 * (totalPanels - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: sectionRef.current,
-                pin: true,
-                scrub: 1,
-                // The scroll duration is based on the number of panels
-                end: () => "+=" + (window.innerWidth * totalPanels),
-                invalidateOnRefresh: true,
-                snap: {
-                    snapTo: 1 / (totalPanels - 1),
-                    duration: { min: 0.2, max: 0.4 },
-                    ease: "power1.inOut"
+            gsap.to(webCards, {
+                x: getScrollAmount,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: webSectionRef.current,
+                    pin: true,
+                    scrub: 1,
+                    end: () => `+=${webContainerRef.current.scrollWidth}`,
+                    invalidateOnRefresh: true,
                 }
-            }
-        });
+            });
 
-        // Add parallax effects to inner elements
-        panels.forEach((panel) => {
-            const bg = panel.querySelector(".panel-bg");
-            const content = panel.querySelector(".panel-content");
-            const number = panel.querySelector(".panel-number");
+            // Fade out the Digital Realms title as scrolling begins
+            gsap.to('.web-sticky-title', {
+                opacity: 0,
+                x: -100,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: webSectionRef.current,
+                    start: "top top",
+                    end: "+=600",
+                    scrub: true,
+                }
+            });
+            // GRAPHIC DESIGN: Simple Showcase Scroll (No Pinning)
+            const gfxRows = gsap.utils.toArray('.gfx-row');
 
-            // Parallax background
-            if (bg) {
-                gsap.to(bg, {
-                    backgroundPosition: "60% 50%",
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: panel,
-                        containerAnimation: gsap.getTweensOf(panels)[0],
-                        start: "left right",
-                        end: "right left",
-                        scrub: true
-                    }
-                });
-            }
-
-            // Text reveal
-            if (content) {
-                gsap.from(content, {
+            gfxRows.forEach((row, i) => {
+                gsap.from(row, {
                     y: 50,
                     opacity: 0,
-                    scale: 0.95,
                     duration: 0.8,
+                    ease: "power3.out",
                     scrollTrigger: {
-                        trigger: panel,
-                        containerAnimation: gsap.getTweensOf(panels)[0],
-                        start: "left center",
-                        end: "right center",
-                        toggleActions: "play reverse play reverse",
+                        trigger: row,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none reverse"
                     }
                 });
-            }
-
-            // Number Parallax
-            if (number) {
-                gsap.to(number, {
-                    x: -100,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: panel,
-                        containerAnimation: gsap.getTweensOf(panels)[0],
-                        start: "left right",
-                        end: "right left",
-                        scrub: 1
-                    }
-                });
-            }
+            });
         });
 
+        mm.add("(max-width: 1023px)", () => {
+            // Mobile simple fade up animations
+            gsap.utils.toArray('.web-card, .gfx-card').forEach((el) => {
+                gsap.from(el, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top bottom-=100",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+        });
+
+        return () => mm.revert();
     }, { scope: mainRef });
 
     return (
-        <div ref={mainRef} style={{ backgroundColor: '#000', color: '#fff', overflowX: 'hidden' }}>
+        <div ref={mainRef} style={{ backgroundColor: '#000', color: '#fff', minHeight: '100vh', overflowX: 'hidden' }}>
+            {/* INJECTED MOBILE FIX */}
+            <style>{`
+                .web-card:hover {
+                    box-shadow: 0 20px 40px rgba(0,235,255,0.15) !important;
+                    border-color: rgba(0,235,255,0.3) !important;
+                }
+                .web-card:hover img {
+                    transform: scale(1.05) !important;
+                    filter: brightness(0.9) grayscale(0) !important;
+                }
+
+                @media (max-width: 1023px) {
+                    .web-section-container {
+                        height: auto !important;
+                        display: block !important;
+                        padding: 100px 5% !important;
+                    }
+                    .web-sticky-title {
+                        position: relative !important;
+                        left: 0 !important;
+                        top: 0 !important;
+                        margin-bottom: 40px !important;
+                    }
+                    .web-container {
+                        padding: 0 !important;
+                        flex-direction: column !important;
+                        align-items: stretch !important;
+                        gap: 30px !important;
+                    }
+                    .web-card {
+                        width: 100% !important;
+                        height: clamp(300px, 45vh, 400px) !important;
+                    }
+                    .gfx-row {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+
+                @keyframes gasStationFlicker {
+                    /* Dead (Outline only) for roughly 5.3 seconds (0% to 88%) */
+                    0%, 88% {
+                        color: transparent;
+                        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+                        text-shadow: none;
+                    }
+                    /* Random chaotic stuttering for the remaining 0.7s (88% to 100%) */
+                    88.5% { color: rgba(255, 255, 255, 0.4); text-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
+                    89% { color: transparent; text-shadow: none; }
+                    90% { color: rgba(255, 255, 255, 0.8); text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); }
+                    90.5% { color: transparent; text-shadow: none; }
+                    91% { color: rgba(255, 255, 255, 0.6); text-shadow: 0 0 5px rgba(255, 255, 255, 0.6); }
+                    92% { color: rgba(255, 255, 255, 1); text-shadow: 0 0 10px rgba(255, 255, 255, 1); }
+                    93% { color: transparent; text-shadow: none; }
+                    94% { color: rgba(255, 255, 255, 1); text-shadow: 0 0 10px rgba(255, 255, 255, 1); }
+                    94.5% { color: transparent; text-shadow: none; }
+                    95.5% { color: rgba(255, 255, 255, 0.9); text-shadow: 0 0 10px rgba(255, 255, 255, 0.9); }
+                    96.5% { color: rgba(255, 255, 255, 0.5); text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+                    98% { color: transparent; text-shadow: none; }
+                    99% { color: rgba(255, 255, 255, 0.3); text-shadow: 0 0 2px rgba(255, 255, 255, 0.3); }
+                    100% { color: transparent; text-shadow: none; }
+                }
+
+                .flicker-text {
+                    animation: gasStationFlicker 6s infinite normal;
+                }
+
+                .vw-title .word-visual {
+                    color: #fff;
+                    transition: color 0.3s ease;
+                }
+                .vw-title .word-works {
+                    color: #ff00ff;
+                    transition: color 0.3s ease;
+                }
+                .vw-title:hover .word-visual {
+                    color: #ff00ff;
+                }
+                .vw-title:hover .word-works {
+                    color: #fff;
+                }
+            `}</style>
+            {/* Ambient Background Glows */}
+            <div style={{ position: 'fixed', top: '10%', left: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(0,255,255,0.05) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+            <div style={{ position: 'fixed', bottom: '10%', right: '-10%', width: '40vw', height: '40vw', background: 'radial-gradient(circle, rgba(255,0,255,0.05) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+
             <Navigation />
 
-            <div id="smooth-wrapper">
-                <div id="smooth-content">
-
-                    {/* Header Section */}
-                    <div style={{
-                        height: '70vh',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center',
-                        background: 'radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%)'
+            {/* Immersive Header */}
+            <div style={{
+                minHeight: '60vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingTop: '100px',
+                position: 'relative'
+            }}>
+                <h1 className="flicker-text" style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(4rem, 12vw, 10rem)',
+                    fontWeight: '900',
+                    textTransform: 'uppercase',
+                    margin: 0,
+                    lineHeight: 1,
+                    textAlign: 'center',
+                    WebkitTextStroke: '1px rgba(255,255,255,0.3)',
+                    color: 'transparent' /* Default fallback state */
+                }}>
+                    CREATIVE <br /> ARCHIVE
+                </h1>
+                <div style={{ transform: 'translateY(-2vw)', display: 'inline-block' }}>
+                    <span style={{
+                        background: 'var(--color-accent-cyan, #00ebff)',
+                        color: '#000',
+                        padding: '10px 25px',
+                        fontWeight: 'bold',
+                        letterSpacing: '4px',
+                        fontSize: '0.9rem',
+                        transform: 'rotate(-3deg)',
+                        display: 'inline-block',
+                        boxShadow: '0 10px 30px rgba(0,235,255,0.3)'
                     }}>
-                        <h1 className="text-gradient" style={{
-                            fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(3rem, 8vw, 8rem)',
-                            fontWeight: 'bold',
-                            lineHeight: 1,
-                            marginBottom: '1rem'
-                        }}>
-                            SELECTED WORKS
-                        </h1>
-                        <p style={{
-                            fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-                            color: '#888',
-                            maxWidth: '600px',
-                            padding: '0 20px',
-                            fontFamily: 'var(--font-main)'
-                        }}>
-                            A gallery of my recent digital experiments and professional projects. Scroll to explore.
-                        </p>
-                        <div style={{ marginTop: '3rem', animation: 'bounce 2s infinite' }}>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    {/* Horizontal Scroll Section */}
-                    <div ref={sectionRef} style={{
-                        height: '100vh',
-                        width: '100%',
-                        display: 'flex',
-                        flexWrap: 'nowrap',
-                        overflow: 'hidden', // Hide overflow to clean up scrollbar
-                    }}>
-                        {/* Wrapper for panels */}
-                        <div style={{ display: 'flex', height: '100vh', width: `${projects.length * 100}%` }}>
-                            {projects.map((project, i) => (
-                                <div key={i} className="project-panel" style={{
-                                    width: '100vw',
-                                    height: '100vh',
-                                    flexShrink: 0,
-                                    position: 'relative',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    overflow: 'hidden',
-                                    borderRight: '1px solid rgba(255,255,255,0.05)'
-                                }}>
-                                    {/* Panel Background */}
-                                    <div className="panel-bg" style={{
-                                        position: 'absolute',
-                                        top: 0, left: 0, width: '100%', height: '100%',
-                                        backgroundImage: `url(${project.bg})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: '10% 50%', // Start position
-                                        filter: 'brightness(0.4) saturate(0)', // Start B&W or dark
-                                        transition: 'filter 0.5s',
-                                        zIndex: 0
-                                    }} />
-
-                                    {/* Hover interaction for color */}
-                                    <div
-                                        style={{ position: 'absolute', inset: 0, zIndex: 1 }}
-                                        onMouseEnter={(e) => {
-                                            const bg = e.currentTarget.parentElement.querySelector('.panel-bg');
-                                            if (bg) bg.style.filter = 'brightness(0.6) saturate(1)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            const bg = e.currentTarget.parentElement.querySelector('.panel-bg');
-                                            if (bg) bg.style.filter = 'brightness(0.4) saturate(0)';
-                                        }}
-                                    ></div>
-
-                                    {/* Background Number */}
-                                    <div className="panel-number" style={{
-                                        position: 'absolute',
-                                        bottom: '-5vh',
-                                        right: '5vw',
-                                        fontSize: '30vh',
-                                        fontWeight: '900',
-                                        color: 'rgba(255,255,255,0.03)',
-                                        fontFamily: 'var(--font-display)',
-                                        zIndex: 0,
-                                        pointerEvents: 'none'
-                                    }}>
-                                        {String(i + 1).padStart(2, '0')}
-                                    </div>
-
-                                    {/* Content Card */}
-                                    <div className="panel-content" style={{
-                                        position: 'relative',
-                                        zIndex: 10,
-                                        width: '85vw',
-                                        maxWidth: '1200px',
-                                        background: 'rgba(12, 12, 12, 0.8)',
-                                        backdropFilter: 'blur(20px)',
-                                        border: '1px solid rgba(255,255,255,0.08)',
-                                        borderRadius: '32px',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        boxShadow: '0 30px 60px rgba(0,0,0,0.6)'
-                                    }}>
-                                        {/* Header: Category & Title */}
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'flex-start' }}>
-                                            <div style={{
-                                                color: 'var(--color-accent-cyan)',
-                                                fontWeight: 'bold',
-                                                letterSpacing: '3px',
-                                                fontSize: '0.9rem',
-                                                textTransform: 'uppercase',
-                                                display: 'flex', alignItems: 'center', gap: '10px'
-                                            }}>
-                                                <span style={{ width: '20px', height: '2px', background: 'var(--color-accent-cyan)' }}></span>
-                                                {project.cat}
-                                            </div>
-
-                                            <h2 className="project-title" style={{
-                                                fontFamily: 'var(--font-display)',
-                                                lineHeight: 1,
-                                                color: '#fff',
-                                                margin: 0,
-                                                maxWidth: '100%',
-                                                textShadow: '0 5px 15px rgba(0,0,0,0.5)'
-                                            }}>
-                                                {project.title}
-                                            </h2>
-                                        </div>
-
-                                        {/* Body: Desc, Tech, Button */}
-                                        <div className="content-grid">
-                                            {/* Description & Tech */}
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                                                <p style={{
-                                                    fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-                                                    fontFamily: 'var(--font-main)',
-                                                    lineHeight: 1.6,
-                                                    color: 'rgba(255,255,255,0.8)',
-                                                    margin: 0,
-                                                    maxWidth: '700px'
-                                                }}>
-                                                    {project.desc}
-                                                </p>
-
-                                                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                                                    {project.tech.map((t, idx) => (
-                                                        <span key={idx} style={{
-                                                            padding: '8px 18px',
-                                                            border: '1px solid rgba(255,255,255,0.2)',
-                                                            borderRadius: '100px',
-                                                            fontSize: '0.85rem',
-                                                            fontWeight: '500',
-                                                            letterSpacing: '1px',
-                                                            background: 'rgba(255,255,255,0.05)',
-                                                            color: '#fff',
-                                                            textTransform: 'uppercase'
-                                                        }}>
-                                                            {t}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {/* Action Button */}
-                                            <div className="btn-container">
-                                                <a href={project.url} target="_blank" className="custom-btn" style={{
-                                                    display: 'inline-block',
-                                                    padding: '1.2rem 3rem',
-                                                    background: '#fff',
-                                                    color: '#000',
-                                                    textDecoration: 'none',
-                                                    borderRadius: '100px',
-                                                    fontWeight: 'bold',
-                                                    fontSize: '1rem',
-                                                    textTransform: 'uppercase',
-                                                    letterSpacing: '1px',
-                                                    transition: 'all 0.3s'
-                                                }}>
-                                                    Live View
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <Footer />
+                        WEB & GRAPHICS
+                    </span>
                 </div>
             </div>
 
-            <style jsx>{`
-                @keyframes bounce {
-                    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-                    40% {transform: translateY(-10px);}
-                    60% {transform: translateY(-5px);}
-                }
-                .custom-btn:hover {
-                    background: var(--color-accent-cyan) !important;
-                    color: #fff !important;
-                    transform: translateY(-2px);
-                    box-shadow: 0 10px 20px -5px rgba(0, 255, 255, 0.3);
-                }
-                .panel-content {
-                    padding: 4rem;
-                    gap: 2.5rem;
-                }
-                .project-title {
-                    font-size: clamp(3rem, 6vw, 6rem);
-                }
-                .content-grid {
-                    display: grid;
-                    grid-template-columns: 2fr 1fr;
-                    gap: 4rem;
-                    padding-top: 2rem;
-                    border-top: 1px solid rgba(255,255,255,0.1);
-                    align-items: center; /* Vertically center button with text block */
-                }
-                .btn-container {
-                    display: flex;
-                    justify-content: flex-end;
-                }
-                @media (max-width: 1024px) {
-                    .panel-content {
-                        padding: 3rem;
-                        gap: 2rem;
-                        width: 90vw !important;
-                    }
-                    .project-title {
-                        font-size: clamp(2.5rem, 8vw, 5rem);
-                    }
-                    .content-grid {
-                        grid-template-columns: 1fr;
-                        gap: 2rem;
-                        align-items: start;
-                    }
-                    .btn-container {
-                        justify-content: flex-start;
-                    }
-                }
-                @media (max-width: 768px) {
-                    .panel-content {
-                        padding: 2rem;
-                        gap: 1.5rem;
-                        width: 95vw !important; /* Maximizing width usage */
-                    }
-                    .project-title {
-                        font-size: clamp(2rem, 10vw, 3.5rem); /* Smaller on mobile */
-                    }
-                    .content-grid {
-                        padding-top: 1.5rem;
-                        gap: 1.5rem;
-                    }
-                    .custom-btn {
-                        width: 100%;
-                        text-align: center;
-                    }
-                }
-            `}</style>
+            {/* WEB PROJECTS SECTION (Horizontal Scroll) */}
+            <section ref={webSectionRef} className="web-section-container" style={{
+                height: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                backgroundColor: '#0a0a0a',
+                borderTop: '1px solid rgba(255,255,255,0.05)'
+            }}>
+                <div className="web-sticky-title" style={{
+                    position: 'absolute',
+                    top: '15%',
+                    left: '5%',
+                    zIndex: 10,
+                    pointerEvents: 'none'
+                }}>
+                    <h2 className="flicker-text" style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: 'clamp(3rem, 6vw, 6rem)',
+                        fontWeight: 900,
+                        color: 'transparent',
+                        WebkitTextStroke: '1px rgba(255, 255, 255, 0.3)',
+                        margin: 0,
+                        lineHeight: 1
+                    }}>
+                        DIGITAL <br /> REALMS
+                    </h2>
+                    <p style={{
+                        color: 'var(--color-accent-cyan, #00ebff)',
+                        letterSpacing: '5px',
+                        marginTop: '15px',
+                        fontWeight: 'bold'
+                    }}>WEB PROJECTS</p>
+                </div>
+
+                <div ref={webContainerRef} className="web-container" style={{
+                    display: 'flex',
+                    gap: '40px',
+                    paddingLeft: '35vw',
+                    paddingRight: '15vw',
+                    alignItems: 'center'
+                }}>
+                    {web.map((project, i) => (
+                        <div key={project.id} className="web-card" style={{
+                            flexShrink: 0,
+                            width: 'clamp(1200px, 50vw, 750px)',
+                            height: 'clamp(700px, 35vh, 450px)',
+                            position: 'relative',
+                            borderRadius: '24px',
+                            overflow: 'hidden',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            background: '#000',
+                            transition: 'box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease'
+                        }}>
+                            <img src={project.bg} alt={project.title} style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                filter: 'brightness(0.6) grayscale(50%)',
+                                transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                            }} />
+
+                            <div style={{
+                                position: 'absolute',
+                                bottom: 0, left: 0, right: 0,
+                                padding: '30px',
+                                background: 'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                    <div style={{ width: '20px', height: '2px', background: 'var(--color-accent-cyan, #00ebff)' }}></div>
+                                    <span style={{ color: '#fff', fontSize: '0.8rem', letterSpacing: '2px', textTransform: 'uppercase' }}>{project.cat}</span>
+                                </div>
+                                <h3 style={{
+                                    fontFamily: 'var(--font-display)',
+                                    fontSize: '2rem',
+                                    margin: '0 0 15px 0',
+                                    textTransform: 'uppercase',
+                                    lineHeight: 1.1
+                                }}>{project.title}</h3>
+
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '15px' }}>
+                                    {project.tech.map((t, idx) => (
+                                        <span key={idx} style={{
+                                            padding: '4px 10px',
+                                            border: '1px solid rgba(255,255,255,0.2)',
+                                            borderRadius: '30px',
+                                            fontSize: '0.7rem',
+                                            color: '#ccc'
+                                        }}>{t}</span>
+                                    ))}
+                                </div>
+
+                                {project.url !== '#' ? (
+                                    <a href={project.url} target="_blank" rel="noopener noreferrer" style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        color: 'var(--color-accent-cyan, #00ebff)',
+                                        textDecoration: 'none',
+                                        fontSize: '0.9rem',
+                                        fontWeight: 'bold',
+                                        textTransform: 'uppercase'
+                                    }}>
+                                        Explore <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                    </a>
+                                ) : (
+                                    <span style={{ color: '#666', fontSize: '0.8rem', textTransform: 'uppercase' }}>Concept Design</span>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* GRAPHIC DESIGN SECTION (Stacked Cards) - COMMENTED OUT TEMPORARILY
+            <section ref={gfxSectionRef} style={{
+                padding: '150px 5%',
+                backgroundColor: '#000',
+                position: 'relative',
+                borderTop: '1px solid rgba(255,255,255,0.05)'
+            }}>
+                <div style={{ textAlign: 'center', marginBottom: '100px' }}>
+                    <h2 className="vw-title" style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: 'clamp(3rem, 6vw, 5rem)',
+                        fontWeight: 900,
+                        margin: 0,
+                        textTransform: 'uppercase',
+                        cursor: 'default'
+                    }}>
+                        <span className="word-visual">VISUAL</span> <span className="word-works">WORKS</span>
+                    </h2>
+                    <p style={{ color: '#aaa', letterSpacing: '4px', marginTop: '15px' }}>BRANDING & EXPERIMENTAL</p>
+                </div>
+
+                <div style={{
+                    maxWidth: '1600px',
+                    margin: '0 auto',
+                    position: 'relative',
+                    perspective: '1000px',
+                    padding: '0 20px'
+                }}>
+                    {Array.from({ length: Math.ceil(graphics.length / 2) }).map((_, rowIndex) => {
+                        const rowCards = graphics.slice(rowIndex * 2, rowIndex * 2 + 2);
+                        return (
+                            <div key={rowIndex} className="gfx-row" style={{
+                                width: '100%',
+                                marginBottom: '50px',
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                                gap: '30px'
+                            }}>
+                                {rowCards.map((project, i) => (
+                                    <div key={project.id} className="gfx-card" style={{
+                                        position: 'relative',
+                                        height: 'clamp(400px, 60vh, 600px)',
+                                        backgroundColor: '#0c0c0c',
+                                        borderRadius: '30px',
+                                        overflow: 'hidden',
+                                        border: '1px solid rgba(255,255,255,0.05)',
+                                        boxShadow: '0 30px 60px rgba(0,0,0,0.8)'
+                                    }}>
+
+                                        {/* Full Background Image *\/}
+                                        <img src={project.img} alt={project.title} style={{
+                                            position: 'absolute',
+                                            top: 0, left: 0,
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            filter: 'brightness(0.6) grayscale(30%)'
+                                        }} />
+
+                                        {/* Elevated Content Overlay *\/}
+                                        <div style={{
+                                            position: 'absolute',
+                                            inset: 0,
+                                            padding: 'clamp(30px, 5vw, 60px)',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-between',
+                                            background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                                            zIndex: 2
+                                        }}>
+                                            <span style={{
+                                                color: '#ff00ff',
+                                                fontSize: '0.9rem',
+                                                letterSpacing: '5px',
+                                                textTransform: 'uppercase',
+                                                fontWeight: 'bold',
+                                                alignSelf: 'flex-start',
+                                                background: 'rgba(0,0,0,0.6)',
+                                                padding: '10px 25px',
+                                                borderRadius: '50px',
+                                                backdropFilter: 'blur(10px)',
+                                                border: '1px solid rgba(255,0,255,0.3)'
+                                            }}>
+                                                {String(rowIndex * 2 + i + 1).padStart(2, '0')} // {project.cat}
+                                            </span>
+
+                                            <div style={{ marginTop: 'auto' }}>
+                                                <h3 style={{
+                                                    fontFamily: 'var(--font-display)',
+                                                    fontSize: 'clamp(2rem, 4vw, 3rem)',
+                                                    margin: '0 0 15px 0',
+                                                    lineHeight: 1.1,
+                                                    textTransform: 'uppercase',
+                                                    color: '#fff',
+                                                    textShadow: '0 10px 30px rgba(0,0,0,0.8)'
+                                                }}>{project.title}</h3>
+                                                <p style={{
+                                                    fontSize: '1rem',
+                                                    color: '#ddd',
+                                                    lineHeight: 1.6,
+                                                    margin: 0,
+                                                    overflow: 'hidden',
+                                                    display: '-webkit-box',
+                                                    WebkitLineClamp: 3,
+                                                    WebkitBoxOrient: 'vertical',
+                                                    textShadow: '0 5px 15px rgba(0,0,0,0.8)'
+                                                }}>{project.desc}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })}
+                </div>
+            </section>
+            */}
+
+            <Footer />
         </div>
     );
 }
