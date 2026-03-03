@@ -16,19 +16,17 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   useGSAP(() => {
-    // Attempt to initialize ScrollSmoother
-    // Note: ScrollSmoother is a Club GSAP plugin. If the file is present but authentication fails, it might not work.
-    // However, based on the file listing, it is present in dist.
+    // Only enable ScrollSmoother on non-touch (desktop) devices.
+    // On mobile/touch devices, it intercepts native scroll and causes lag.
+    const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
-    // We check if ScrollSmoother is registered
-    if (gsap.plugins.scrollSmoother || (ScrollSmoother && ScrollSmoother.version)) {
+    if (!isTouchDevice && (gsap.plugins.scrollSmoother || (ScrollSmoother && ScrollSmoother.version))) {
       try {
         ScrollSmoother.create({
           wrapper: "#smooth-wrapper",
           content: "#smooth-content",
           smooth: 1.5,
-          effects: true,
-          smoothTouch: 0.1
+          effects: false,
         });
       } catch (error) {
         console.log("ScrollSmoother initialization skipped:", error);

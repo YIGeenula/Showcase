@@ -19,12 +19,14 @@ export default function About() {
     };
 
     useGSAP(() => {
+        const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
         // 1. Staggered Grid Reveal
         const cards = gsap.utils.toArray(".bento-card");
         gsap.from(cards, {
-            y: 100,
+            y: 60,
             opacity: 0,
-            duration: 1,
+            duration: 0.8,
             stagger: 0.1,
             ease: "power3.out",
             scrollTrigger: {
@@ -33,31 +35,33 @@ export default function About() {
             }
         });
 
-        // 2. 3D Tilt Effect on Mouse Move
-        cards.forEach(card => {
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+        // 2. 3D Tilt Effect on Mouse Move — desktop only (no touch events)
+        if (!isTouchDevice) {
+            cards.forEach(card => {
+                card.addEventListener("mousemove", (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
 
-                const rotateX = ((y - centerY) / centerY) * -10; // Max -10 to 10 deg
-                const rotateY = ((x - centerX) / centerX) * 10;
+                    const rotateX = ((y - centerY) / centerY) * -10;
+                    const rotateY = ((x - centerX) / centerX) * 10;
 
-                gsap.to(card, {
-                    rotateX: rotateX,
-                    rotateY: rotateY,
-                    transformPerspective: 1000,
-                    duration: 0.5,
-                    ease: "power2.out"
+                    gsap.to(card, {
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        transformPerspective: 1000,
+                        duration: 0.5,
+                        ease: "power2.out"
+                    });
+                });
+
+                card.addEventListener("mouseleave", () => {
+                    gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.5, ease: "power2.out" });
                 });
             });
-
-            card.addEventListener("mouseleave", () => {
-                gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.5, ease: "power2.out" });
-            });
-        });
+        }
 
         // 3. Counter Animation for Stats
         const stats = gsap.utils.toArray(".stat-number");
@@ -74,56 +78,68 @@ export default function About() {
             });
         });
 
-        // 4. Border Pulse Animation
-        gsap.to(cards, {
-            boxShadow: '0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2)',
-            duration: 1.5,
-            repeat: -1, // Loop indefinitely
-            yoyo: true, // Go back and forth
-            ease: "sine.inOut",
-            stagger: 0.2 // Stagger the start times slightly for a more organic look
-        });
-
-        // 5. Bumping Dot Animation (ADVANCED ORBITAL EFFECT)
-        const dot = innerDotRef.current;
-        if (dot) {
-            // Use a timeline for a complex, non-linear path (Figure Eight approximation)
-            const advancedDotTimeline = gsap.timeline({
+        // 4. Border Pulse Animation — desktop only (continuous GPU work is expensive on mobile)
+        if (!isTouchDevice) {
+            gsap.to(cards, {
+                boxShadow: '0 0 10px rgba(255, 255, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2)',
+                duration: 1.5,
                 repeat: -1,
-                defaults: { duration: 1.5, ease: "power1.inOut" }
+                yoyo: true,
+                ease: "sine.inOut",
+                stagger: 0.2
             });
-
-            advancedDotTimeline
-                .to(dot, { x: 15, y: -10, scale: 1.15 }) // Top Right Drift + Scale Pulse
-                .to(dot, { x: 10, y: 15, scale: 1.05 })  // Bottom Right Drift + Scale Pulse
-                .to(dot, { x: -15, y: 10, scale: 1.15 }) // Bottom Left Drift + Scale Pulse
-                .to(dot, { x: -10, y: -15, scale: 1.05 })// Top Left Drift + Scale Pulse
-                .to(dot, { x: 0, y: 0, scale: 1.0 });    // Return to center for seamless loop
         }
 
-        // 6. Technology Tag Hover Effect (using GSAP for smooth color transition)
-        techRefs.current.forEach((tag) => {
-            tag.addEventListener('mouseenter', () => {
-                gsap.to(tag, {
-                    backgroundColor: 'rgba(255, 255, 255, 1)', // Change background to white
-                    color: '#000',                              // Change text color to black
-                    border: '1px solid #fff',
-                    duration: 0.2,
-                    ease: "power1.inOut"
+        // 5. Bumping Dot Animation — simplified on mobile to reduce continuous animation cost
+        const dot = innerDotRef.current;
+        if (dot) {
+            if (isTouchDevice) {
+                // Simple gentle pulse on mobile instead of orbital path
+                gsap.to(dot, {
+                    scale: 1.3,
+                    duration: 1.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            } else {
+                const advancedDotTimeline = gsap.timeline({
+                    repeat: -1,
+                    defaults: { duration: 1.5, ease: "power1.inOut" }
+                });
+                advancedDotTimeline
+                    .to(dot, { x: 15, y: -10, scale: 1.15 })
+                    .to(dot, { x: 10, y: 15, scale: 1.05 })
+                    .to(dot, { x: -15, y: 10, scale: 1.15 })
+                    .to(dot, { x: -10, y: -15, scale: 1.05 })
+                    .to(dot, { x: 0, y: 0, scale: 1.0 });
+            }
+        }
+
+        // 6. Technology Tag Hover Effect — desktop only (no hover on mobile)
+        if (!isTouchDevice) {
+            techRefs.current.forEach((tag) => {
+                tag.addEventListener('mouseenter', () => {
+                    gsap.to(tag, {
+                        backgroundColor: 'rgba(255, 255, 255, 1)',
+                        color: '#000',
+                        border: '1px solid #fff',
+                        duration: 0.2,
+                        ease: "power1.inOut"
+                    });
+                });
+
+                tag.addEventListener('mouseleave', () => {
+                    gsap.to(tag, {
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                        color: '#ccc',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        duration: 0.2,
+                        ease: "power1.inOut"
+                    });
                 });
             });
-
-            tag.addEventListener('mouseleave', () => {
-                gsap.to(tag, {
-                    backgroundColor: 'rgba(255, 255, 255, 0.05)', // Revert background
-                    color: '#ccc',                                  // Revert text color
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    duration: 0.2,
-                    ease: "power1.inOut"
-                });
-            });
-        });
-
+        }
 
     }, { scope: containerRef });
 

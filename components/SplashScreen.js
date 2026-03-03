@@ -91,11 +91,12 @@ export default function SplashScreen() {
         tl.to({}, { duration: 0.5 });
 
         // 5. Exit animation
-        // Explode text
+        const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        // Explode text — skip blur filter on mobile (too expensive)
         tl.to([textRef.current, subTextRef.current], {
             scale: 2,
             opacity: 0,
-            filter: "blur(10px)",
+            ...(isTouchDevice ? {} : { filter: "blur(10px)" }),
             duration: 0.5,
             ease: "power2.in",
         });
@@ -108,6 +109,9 @@ export default function SplashScreen() {
         });
 
     }, { scope: containerRef, dependencies: [pathname] });
+
+    // ---- SplashScreen: apply mobile exit animation tweak inline via CSS ----
+    // (The blur exit is handled conditionally in the GSAP timeline above)
 
     if (!isMounted) return null;
 

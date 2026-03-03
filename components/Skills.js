@@ -55,11 +55,13 @@ export default function Skills() {
     ];
 
     useGSAP(() => {
+        const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
         // 1. Staggered Reveal
         gsap.from(".skill-row", {
-            y: 100,
+            y: 60,
             opacity: 0,
-            duration: 1,
+            duration: 0.8,
             stagger: 0.15,
             ease: "power3.out",
             scrollTrigger: {
@@ -82,20 +84,22 @@ export default function Skills() {
             }
         });
 
-        // 3. Hover Interaction per row
-        const rows = gsap.utils.toArray(".skill-row");
-        rows.forEach(row => {
-            const icon = row.querySelector(".skill-icon");
+        // 3. Hover Interaction per row — desktop only
+        if (!isTouchDevice) {
+            const rows = gsap.utils.toArray(".skill-row");
+            rows.forEach(row => {
+                const icon = row.querySelector(".skill-icon");
 
-            row.addEventListener("mouseenter", () => {
-                gsap.to(row, { backgroundColor: "rgba(255,255,255,0.05)", paddingLeft: "20px", duration: 0.3 });
-                gsap.to(icon, { rotate: 90, scale: 1.2, color: "var(--color-accent-cyan)", duration: 0.4 });
+                row.addEventListener("mouseenter", () => {
+                    gsap.to(row, { backgroundColor: "rgba(255,255,255,0.05)", paddingLeft: "20px", duration: 0.3 });
+                    gsap.to(icon, { rotate: 90, scale: 1.2, color: "var(--color-accent-cyan)", duration: 0.4 });
+                });
+                row.addEventListener("mouseleave", () => {
+                    gsap.to(row, { backgroundColor: "transparent", paddingLeft: "0px", duration: 0.3 });
+                    gsap.to(icon, { rotate: 0, scale: 1, color: "inherit", duration: 0.4 });
+                });
             });
-            row.addEventListener("mouseleave", () => {
-                gsap.to(row, { backgroundColor: "transparent", paddingLeft: "0px", duration: 0.3 });
-                gsap.to(icon, { rotate: 0, scale: 1, color: "inherit", duration: 0.4 });
-            });
-        });
+        }
 
     }, { scope: containerRef });
 
