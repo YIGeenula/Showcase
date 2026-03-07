@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import LikeButton from './LikeButton';
 
 export default function Footer() {
     return (
@@ -12,8 +13,9 @@ export default function Footer() {
             zIndex: 10
         }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+                <LikeButton />
                 {/* Copyright */}
-                <p style={{ color: '#444', fontSize: '0.8rem', letterSpacing: '1px', fontFamily: 'var(--font-main)' }}>
+                <p style={{ color: '#444', fontSize: '0.8rem', letterSpacing: '1px', fontFamily: 'var(--font-main)', marginTop: '20px' }}>
                     &copy; {new Date().getFullYear()} CODEXBLAZE ALL RIGHTS RESERVED.
                 </p>
             </div>
