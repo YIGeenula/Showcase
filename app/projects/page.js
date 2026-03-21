@@ -8,6 +8,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 
 const web = [
+    { id: 'w0', type: 'WEB', title: 'CODEXFUEL', cat: 'SERVICE', bg: '/images/projects/proj-07.webp', url: 'https://codexfuel.netlify.app', desc: 'My Nihongo Path is a comprehensive Japanese learning platform designed to help students master Hiragana, Katakana, and Kanji through interactive lessons and practice tools.', tech: ['HTML', 'CSS', 'JavaScript'] },
     { id: 'w1', type: 'WEB', title: 'MY NIHONGO PATH', cat: 'EDUCATION', bg: '/images/projects/proj_01.webp', url: 'http://mynihongopath.online', desc: 'My Nihongo Path is a comprehensive Japanese learning platform designed to help students master Hiragana, Katakana, and Kanji through interactive lessons and practice tools.', tech: ['HTML', 'CSS', 'JavaScript'] },
     { id: 'w2', type: 'WEB', title: 'GTA 6 COUNTDOWN', cat: 'ENTERTAINMENT', bg: '/images/projects/proj_02.webp', url: 'https://gta6release.netlify.app', desc: 'GTA 6 release countdown website with a live timer, latest news updates, trailer embeds, and featured leaks.', tech: ['HTML', 'CSS', 'JavaScript'] },
     { id: 'w3', type: 'WEB', title: 'GW PORTFOLIO', cat: 'PORTFOLIO', bg: '/images/projects/proj_03.webp', url: 'https://gesitha.netlify.app', desc: 'Professional portfolio website for a graphic designer featuring animated sections, project showcases, and a contact form.', tech: ['HTML', 'CSS', 'JavaScript'] },

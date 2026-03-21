@@ -42,16 +42,16 @@ export default function Projects() {
 
     const projects = [
         {
+            title: 'CODEXFUEL',
+            cat: 'SERVICE',
+            bg: '/images/projects/proj-07.webp',
+            url: 'https://codexfuel.netlify.app'
+        },
+        {
             title: 'MY NIHONGO PATH',
             cat: 'EDUCATION',
             bg: '/images/projects/proj_01.webp',
             url: 'http://mynihongopath.online'
-        },
-        {
-            title: 'GTA 6 COUNTDOWN',
-            cat: 'ENTERTAINMENT',
-            bg: '/images/projects/proj_02.webp',
-            url: 'https://gta6release.netlify.app'
         },
         {
             title: 'GW PORTFOLIO',
@@ -59,6 +59,7 @@ export default function Projects() {
             bg: '/images/projects/proj_03.webp',
             url: 'https://gesitha.netlify.app'
         },
+
     ];
 
     return (
