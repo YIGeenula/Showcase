@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=YIGeenula&label=Showcase%20Views&color=8A2BE2&style=flat-square" alt="Visitor Count" />
 
-## Getting Started
+  <h1 align="center">CodeXBlaze Portfolio Showcase</h1>
 
-First, run the development server:
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&duration=3000&pause=1000&color=00FFFF&center=true&vCenter=true&width=600&lines=Crafting+Digital+Destinations.;Minimal+Effort+Wins.;Human-Centered+Design.;AI-Enhanced+Development." alt="Typing SVG" />
+  </a>
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+  <em>Build modern, high-quality digital products by combining AI-assisted development with real design thinking, clean code, and smooth animations.</em>
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 About This Repository
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Welcome to the source code of **CodeXBlaze** – a highly interactive, animated personal portfolio website. This project leverages the power of Next.js and GSAP to deliver a fluid, high-end digital experience that feels natural and intuitive.
 
-## Learn More
+**Key features include:**
+- 🎬 **Immersive Animations:** Heavy utilization of GSAP for parallax, pinned scrolling, 3D tilts, and staggered reveals.
+- 🍱 **Bento Grid Layout:** A responsive, modular approach to presenting information, stats, and skills.
+- 🌊 **Smooth Navigation:** Built-in `ScrollSmoother` and `ScrollTrigger` logic for buttery-smooth horizontal and vertical web experiences.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💻 Tech Stack & Tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=,nextjs,js,html,css,nodejs,supabase,figma,git,github,vscode&=6" alt="Tech Stack Icons" />
+  </a>
+</p>
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Local Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Want to run this showcase on your machine? Follow these simple steps:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/YIGeenula/Showcase.git
+   cd Showcase
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+4. **View locally** – Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🎨 Design Philosophy
+
+*"Minimal Effort Wins."*
+CodeXBlaze emphasizes:
+1. **Human-Centered Design**: Interfaces that feel natural and intuitive.
+2. **AI-Enhanced Development**: Accelerating technical workflows without losing the handcrafted touch.
+3. **Immersive Methodology**: Clean architecture combined with fluid motion, ensuring every pixel serves a purpose and every animation tells a story.
+
+---
+
+## 📜 License
+
+This project is intended as a personal showcase.
