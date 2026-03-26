@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { usePageTransition } from './TransitionProvider';
 import { gsap } from "gsap/dist/gsap";
 import { useGSAP } from "@gsap/react/dist";
 
@@ -9,6 +10,7 @@ import { useLoading } from './LoadingContext';
 
 export default function Navigation() {
     const { isLoading } = useLoading();
+    const { navigateTo } = usePageTransition();
     const navRef = useRef(null);
     const mobileMenuRef = useRef(null);
     const menuItemsRef = useRef([]);
@@ -102,7 +104,7 @@ export default function Navigation() {
             >
                 <div className="nav-container">
                     {/* LOGO */}
-                    <Link href="/" className="logo">
+                    <Link href="/" className="logo" onClick={(e) => { e.preventDefault(); navigateTo('/'); }}>
                         CODE<span className="logo-accent">X</span>BLAZE
                     </Link>
 
@@ -115,6 +117,7 @@ export default function Navigation() {
                                     key={link.name}
                                     href={link.href}
                                     className={`nav-link ${isActive ? 'active' : ''}`}
+                                    onClick={(e) => { e.preventDefault(); navigateTo(link.href); }}
                                 >
                                     {link.name}
                                 </Link>
@@ -124,7 +127,7 @@ export default function Navigation() {
 
                     {/* CTA BUTTON (Desktop) */}
                     <div className="nav-cta">
-                        <Link href="/projects" className="cta-button">
+                        <Link href="/projects" className="cta-button" onClick={(e) => { e.preventDefault(); navigateTo('/projects'); }}>
                             Projects
                         </Link>
                     </div>
@@ -155,13 +158,13 @@ export default function Navigation() {
                             href={link.href}
                             className="mobile-link"
                             ref={el => menuItemsRef.current[i] = el}
-                            onClick={() => setTimeout(toggleMenu, 100)} // Small delay
+                            onClick={(e) => { e.preventDefault(); setTimeout(toggleMenu, 100); navigateTo(link.href); }}
                         >
                             {link.name}
                         </Link>
                     ))}
                     <div ref={el => menuItemsRef.current[navLinks.length] = el}>
-                        <Link href="/projects" className="mobile-cta" onClick={() => setTimeout(toggleMenu, 100)}>
+                        <Link href="/projects" className="mobile-cta" onClick={(e) => { e.preventDefault(); setTimeout(toggleMenu, 100); navigateTo('/projects'); }}>
                             Projects
                         </Link>
                     </div>

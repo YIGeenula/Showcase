@@ -3,6 +3,7 @@ import "./globals.css";
 import GSAPInitializer from '@/components/GSAPInitializer';
 import SplashScreen from '@/components/SplashScreen';
 import { LoadingProvider } from '@/components/LoadingContext';
+import TransitionProvider from '@/components/TransitionProvider';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-main' });
@@ -99,7 +100,9 @@ export default function RootLayout({ children }) {
           <SplashScreen />
 
           {/* Page Content */}
-          {children}
+          <TransitionProvider>
+            {children}
+          </TransitionProvider>
 
           {/* Combined JSON-LD Schema */}
           <script
