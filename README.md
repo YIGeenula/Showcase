@@ -29,7 +29,7 @@ Welcome to the source code of **CodeXBlaze** – a highly interactive, animated 
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=,nextjs,js,html,css,nodejs,supabase,figma,git,github,vscode&=6" alt="Tech Stack Icons" />
+    <img src="https://skillicons.dev/icons?i=nextjs,js,html,css,nodejs,supabase,figma,git,github,vscode&=6" alt="Tech Stack Icons" />
   </a>
 </p>
 
