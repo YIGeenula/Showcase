@@ -29,7 +29,7 @@ export default function Contact() {
         setResult("Sending...");
 
         const formData = new FormData(event.target);
-        formData.append("access_key", "19c40814-729c-4c17-ae38-0a947a599617");
+        formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "19c40814-729c-4c17-ae38-0a947a599617");
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {
@@ -44,7 +44,7 @@ export default function Contact() {
                 event.target.reset();
             } else {
                 console.log("Error", data);
-                setResult("Transmission Failed. Retry.");
+                setResult(data.message || "Transmission Failed. Retry.");
             }
         } catch (error) {
             console.error("Submission error", error);

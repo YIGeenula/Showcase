@@ -90,18 +90,37 @@ export default function ContactPage() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        const formData = new FormData(e.target);
+        formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "19c40814-729c-4c17-ae38-0a947a599617");
 
-        setIsSubmitting(false);
-        setIsSuccess(true);
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
 
-        // Success Animation
-        gsap.to(formRef.current, {
-            opacity: 0,
-            y: -20,
-            duration: 0.5
-        });
+            const data = await response.json();
+
+            if (data.success) {
+                setIsSubmitting(false);
+                setIsSuccess(true);
+                
+                // Success Animation
+                gsap.to(formRef.current, {
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.5
+                });
+            } else {
+                console.error("Error", data);
+                setIsSubmitting(false);
+                alert(data.message || "Transmission failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Submission error", error);
+            setIsSubmitting(false);
+            alert("Connection error. Please try again.");
+        }
     };
 
     return (
